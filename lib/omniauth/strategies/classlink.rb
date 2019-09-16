@@ -10,8 +10,7 @@ module OmniAuth
         authorize_url: '/oauth2/v2/auth',
         token_url:     '/oauth2/v2/token'
       }
-      option :fields, [:email, :profile]
-      option :uid_field, 'UserId'
+      uid { raw_info["UserId"] }
 
       def authorize_params
         super.tap do |params|
@@ -23,6 +22,7 @@ module OmniAuth
       info do
         {
           first_name: raw_info['FirstName'],
+          last_name: raw_info['LastName'],
           district_id: raw_info['TenantId'],
           classlink_id: raw_info['UserId'],
           external_id: raw_info['SourcedId'],
